@@ -1,5 +1,6 @@
 import { Hello } from './components/HelloWorld'
 import { ColorTool } from './components/ColorTool';
+import { CarTool } from './components/CarTool';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
       {/* Evaluate an expression and pass the result as a prop */}
       <Hello subject={planet} />
       <ColorTool />
+      <CarTool />
     </>
   );
 }
