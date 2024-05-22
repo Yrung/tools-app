@@ -46,7 +46,7 @@ export const calcToolSlice = createSlice({
         }
       ]
     },
-    clearHistory: (state) => {
+    resetHistory: (state) => {
       // state.history = [];
 
       // Redux Toolkit prefers that we mutate the array instead of create a new one
@@ -64,7 +64,7 @@ export const calcToolSlice = createSlice({
 
 // this creates add() and subtract() actions
 // these actions will be used/dispatched when you want to "call" the reducers
-export const { add, subtract, multiply, divide, clearHistory, deleteHistoryEntry } = calcToolSlice.actions;
+export const { add, subtract, multiply, divide, resetHistory, deleteHistoryEntry } = calcToolSlice.actions;
 
 // calculate 'result' from history
 export const selectResult = state => {
