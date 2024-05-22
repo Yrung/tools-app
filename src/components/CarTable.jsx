@@ -19,6 +19,8 @@ export const CarTable = (props) => {
           <th>{car.year}</th>
           <th>{car.color}</th>
           <th>{car.price}</th>
+          {/* on click delete, it'll call deleteCar() in CarTool */}
+          <th><button type="button" onClick={() => props.onDeleteCar(car.id)}>X</button></th>
         </tr>
       )}
       </tbody>
@@ -34,4 +36,5 @@ CarTable.propTypes = {
     color: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   })),
+  onDeleteCar: PropTypes.func.isRequired,
 };

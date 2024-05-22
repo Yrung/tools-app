@@ -25,9 +25,9 @@ export const ColorTool = () => {
     ])
   }, [colors])
 
-const deleteColor = (colorId) => {
-  setColors(colors.filter(c => c.id !== colorId));
-};
+  const deleteColor = (colorId) => {
+    setColors(colors.filter(c => c.id !== colorId));
+  };
 
   return (
     <>
