@@ -25,9 +25,9 @@ export const ColorTool = () => {
     ])
   }, [colors])
 
-  const deleteColor = (colorId) => {
+  const deleteColor = useCallback((colorId) => {
     setColors(colors.filter(c => c.id !== colorId));
-  };
+  }, [colors]);
 
   return (
     <>
