@@ -4,6 +4,8 @@ import { ColorList } from "./ColorList";
 import { ToolHeader } from "./ToolHeader";
 import { ColorForm } from './ColorForm';
 
+// ColorTool provides the car data (keep the state) and is the parent component of the whole Color thing,
+// calling ColorList and ColorForm to display them
 export const ColorTool = () => {
 
   const [colors, setColors] = useState([
@@ -23,10 +25,14 @@ export const ColorTool = () => {
     ])
   }, [colors])
 
+const deleteColor = (colorId) => {
+  setColors(colors.filter(c => c.id !== colorId));
+};
+
   return (
     <>
       <ToolHeader headerText="Color Tool" />
-      <ColorList colors={colors} />
+      <ColorList colors={colors} onDeleteColor={deleteColor}/>
       <ColorForm buttonText="Add Color" onSubmitColor={addColor} />
     </>
   );

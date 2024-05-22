@@ -3,7 +3,7 @@ import { CarForm } from './CarForm';
 import { CarTable } from './CarTable';
 import { ToolHeader } from './ToolHeader';
 
-// CarTool provides the car data and is the parent component of the whole Car thing,
+// CarTool provides the car data (keep the state) and is the parent component of the whole Car thing,
 // calling CarTable and CarForm to display them
 export const CarTool = () => {
 const [cars, setCars] = useState([
