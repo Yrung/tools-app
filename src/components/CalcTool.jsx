@@ -1,32 +1,27 @@
 import { useState, useCallback } from 'react';
+import { useCalcToolStore } from '../hooks/useCalcToolStore';
 
 export const CalcTool = () => {
 
-  // application state
-  const [appState, setAppState] = useState({result: 0});
-
+  const calcToolStore = useCalcToolStore();
   // component state
   const [num, setNum] = useState(0);
 
+  // add (action)
   const add = useCallback(() => {
-    setAppState({
-      ...appState,
-      result: appState.result + num,
-    });
+    // update the state (reducer)
+    calcToolStore.add(num);
     setNum(0);
-  }, [appState, num]);
+  }, [calcToolStore, num]);
 
   const subtract = useCallback(() => {
-    setAppState({
-      ...appState,
-      result: appState.result - num,
-    });
+    calcToolStore.subtract(num)
     setNum(0);
-  }, [appState, num]);
+  }, [calcToolStore, num]);
 
   return (
     <form>
-      <div>Result: {result}</div>
+      <div>Result: {calcToolStore.result}</div>
       <label> 
         Num Input:
         <input type="number" value={num} 
