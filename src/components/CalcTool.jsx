@@ -65,16 +65,18 @@ export const CalcTool = () => {
         <button type="button" onClick={doClearHistory}>Reset</button>
       </fieldset>
       <table>
-        <tbody>
+        <thead>
           <tr>
             <th>Operation</th>
             <th>Operand</th>
           </tr>
+        </thead>
+        <tbody>
           {history.map(h => 
             <tr key={h.id}>
-              <th>{h.opName}</th>
-              <th>{h.opValue}</th>
-              <button type="button" onClick={() => doDeleteHistoryEntry(h.id)}>Delete</button>
+              <td>{h.opName}</td>
+              <td>{h.opValue}</td>
+              <td><button type="button" onClick={() => doDeleteHistoryEntry(h.id)}>Delete</button></td>
             </tr>
           )}
         </tbody>
