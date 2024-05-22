@@ -50,13 +50,20 @@ export const calcToolSlice = createSlice({
           id: Math.max(...state.history.map(h => h.id), 0) + 1,
         }
       ]
+    },
+    clearHistory: (state) => {
+      state.result = 0;
+      state.history = [];
+    },
+    deleteHistoryEntry: (state, action) => {
+      state.history = state.history.filter(h => h.id !== action.payload);
     }
   }
 });
 
 // this creates add() and subtract() actions
 // these actions will be used/dispatched when you want to "call" the reducers
-export const { add, subtract, multiply, divide } = calcToolSlice.actions;
+export const { add, subtract, multiply, divide, clearHistory, deleteHistoryEntry } = calcToolSlice.actions;
 
 // get the 'result' part of the state from the 'calcTool' slice
 export const selectResult = state => state.calcTool.result;

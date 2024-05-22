@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { add, subtract, multiply, divide, selectResult, selectHistory } from '../slices/calcToolSlice';
+import { add, subtract, multiply, divide, clearHistory, deleteHistoryEntry, selectResult, selectHistory } from '../slices/calcToolSlice';
 
 export const CalcTool = () => {
 
@@ -37,6 +37,14 @@ export const CalcTool = () => {
     setNum(0);
   }, [num, dispatch]);
 
+  const doClearHistory = useCallback(() => {
+    dispatch(clearHistory());
+  }, [dispatch]);
+
+  const doDeleteHistoryEntry = useCallback((id) => {
+    dispatch(deleteHistoryEntry(id));
+  }, [dispatch]);
+
   return (
     <>
     <header>
@@ -54,6 +62,7 @@ export const CalcTool = () => {
         <button type="button" onClick={doSubtract}>-</button>
         <button type="button" onClick={doMultiply}>*</button>
         <button type="button" onClick={doDivide}>/</button>
+        <button type="button" onClick={doClearHistory}>Reset</button>
       </fieldset>
       <table>
         <tbody>
@@ -65,6 +74,7 @@ export const CalcTool = () => {
             <tr key={h.id}>
               <th>{h.opName}</th>
               <th>{h.opValue}</th>
+              <button type="button" onClick={() => doDeleteHistoryEntry(h.id)}>Delete</button>
             </tr>
           )}
         </tbody>
