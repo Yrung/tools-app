@@ -53,10 +53,17 @@ export const calcToolSlice = createSlice({
     },
     clearHistory: (state) => {
       state.result = 0;
-      state.history = [];
+      // state.history = [];
+
+      // Redux Toolkit prefers that we mutate the array instead of create a new one
+      state.history.splice(0, state.history.length);
     },
     deleteHistoryEntry: (state, action) => {
-      state.history = state.history.filter(h => h.id !== action.payload);
+      // state.history = state.history.filter(h => h.id !== action.payload);
+
+      // Redux Toolkit prefers that we mutate the array instead of create a new one
+      const entryIndex = state.history.findIndex(entry => entry.id === action.payload);
+      state.history.splice(entryIndex, 1);
     }
   }
 });
