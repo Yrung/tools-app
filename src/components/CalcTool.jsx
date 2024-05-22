@@ -1,13 +1,15 @@
 import { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { add, subtract, multiply, divide, selectResult } from '../slices/calcToolSlice';
+import { add, subtract, multiply, divide, selectResult, selectHistory } from '../slices/calcToolSlice';
 
 export const CalcTool = () => {
 
   // the useSelector hook will have access to the redux store
   // so the useSelector hook will use selectResult func to get the result off the state
   const result = useSelector(selectResult);
+
+  const history = useSelector(selectHistory);
 
   // sends actions into the store
   const dispatch = useDispatch();
@@ -53,6 +55,20 @@ export const CalcTool = () => {
         <button type="button" onClick={doMultiply}>*</button>
         <button type="button" onClick={doDivide}>/</button>
       </fieldset>
+      <table>
+        <tbody>
+          <tr>
+            <th>Operation</th>
+            <th>Operand</th>
+          </tr>
+          {history.map(h => 
+            <tr key={h.id}>
+              <th>{h.opName}</th>
+              <th>{h.opValue}</th>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </form>
     </>
   )
