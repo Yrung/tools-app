@@ -1,19 +1,28 @@
 import { useState, useCallback } from 'react';
 
 export const CalcTool = () => {
-  const [result, setResult] = useState(0);
 
+  // application state
+  const [appState, setAppState] = useState({result: 0});
+
+  // component state
   const [num, setNum] = useState(0);
 
   const add = useCallback(() => {
-    setResult(result + num);
+    setAppState({
+      ...appState,
+      result: appState.result + num,
+    });
     setNum(0);
-  }, [result, num]);
+  }, [appState, num]);
 
   const subtract = useCallback(() => {
-    setResult(result - num);
+    setAppState({
+      ...appState,
+      result: appState.result - num,
+    });
     setNum(0);
-  }, [result, num]);
+  }, [appState, num]);
 
   return (
     <form>
