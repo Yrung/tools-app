@@ -3,12 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 export const calcToolSlice = createSlice({
   name: 'calcTool',
   initialState: {
-    result: 0,
     history: [],
   },
   reducers: {
     add: (state, action) => {
-      state.result += action.payload;
       state.history = [
         ...state.history,
         {
@@ -19,7 +17,6 @@ export const calcToolSlice = createSlice({
       ]
     },
     subtract: (state, action) => {
-      state.result -= action.payload;
       state.history = [
         ...state.history,
         {
@@ -30,7 +27,6 @@ export const calcToolSlice = createSlice({
       ]
     },
     multiply: (state, action) => {
-      state.result *= action.payload;
       state.history = [
         ...state.history,
         {
@@ -41,7 +37,6 @@ export const calcToolSlice = createSlice({
       ]
     },
     divide: (state, action) => {
-      state.result /= action.payload;
       state.history = [
         ...state.history,
         {
@@ -52,7 +47,6 @@ export const calcToolSlice = createSlice({
       ]
     },
     clearHistory: (state) => {
-      state.result = 0;
       // state.history = [];
 
       // Redux Toolkit prefers that we mutate the array instead of create a new one
@@ -72,9 +66,31 @@ export const calcToolSlice = createSlice({
 // these actions will be used/dispatched when you want to "call" the reducers
 export const { add, subtract, multiply, divide, clearHistory, deleteHistoryEntry } = calcToolSlice.actions;
 
-// get the 'result' part of the state from the 'calcTool' slice
-export const selectResult = state => state.calcTool.result;
+// calculate 'result' from history
+export const selectResult = state => {
+  let result = 0;
+  for (const entry of state.calcTool.history) {
+    switch (entry.opName) {
+      case 'Add':
+        result += entry.opValue;
+        break;
+      case 'Subtract':
+        result -= entry.opValue;
+        break;
+      case 'Multiply':
+        result *= entry.opValue;
+        break;
+      case 'Divide':
+        result /= entry.opValue;
+        break;
+      default:
+        break;
+    }
+  }
+  return result;
+}
 
+// get the 'history' part of the state from the 'calcTool' slice
 export const selectHistory = state => state.calcTool.history;
 
 // export the reducer, so you could add them to the store when configuring the store in store.js
