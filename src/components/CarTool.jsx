@@ -2,23 +2,34 @@ import { useCallback } from 'react';
 import { CarForm } from './CarForm';
 import { CarTable } from './CarTable';
 import { ToolHeader } from './ToolHeader';
-import { useDispatch, useSelector } from 'react-redux';
-import { addCar, deleteCar, selectCars } from '../slices/carToolSlice';
+
+import {
+  useGetCarsQuery, useAppendCarMutation, useRemoveCarMutation,
+} from '../api/carToolApi';
 
 // CarTool provides the car data (keep the state) and is the parent component of the whole Car thing,
 // calling CarTable and CarForm to display them
 export const CarTool = () => {
 
-  const cars = useSelector(selectCars);
-  const dispatch = useDispatch();
+  const { data: cars, isLoading, isError } = useGetCarsQuery();
+  const [ appendCar ] = useAppendCarMutation();
+  const [ removeCar ] = useRemoveCarMutation();
 
-  const doAddCar = useCallback(newCar => {
-    dispatch(addCar(newCar));
-  }, [dispatch])
+  const doAddCar = useCallback(async newCar => {
+    await appendCar(newCar);
+  }, [appendCar])
 
-  const doDeleteCar = useCallback((carId) => {
-    dispatch(deleteCar(carId))
-  }, [dispatch]);
+  const doDeleteCar = useCallback(async carId => {
+    await removeCar(carId);
+  }, [removeCar]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Sorry, something went wrong...</p>;
+  }
 
   return (
     <>
