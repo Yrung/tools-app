@@ -11,18 +11,26 @@ export const colorToolSlice = createSlice({
   },
   reducers: {
     addColor: (state, action) => {
-      state.colors = [
-        ...state.colors,
-        {
-          name: action.payload.name,
-          hexcode: action.payload.hexcode,
-          id: Math.max(...state.colors.map(c => c.id), 0) + 1,
-        }
-      ]
+      // state.colors = [
+      //   ...state.colors,
+      //   {
+      //     name: action.payload.name,
+      //     hexcode: action.payload.hexcode,
+      //     id: Math.max(...state.colors.map(c => c.id), 0) + 1,
+      //   }
+      // ]
+
+      // mutate state because Redux Toolkit uses immmer library
+      state.colors.push({
+        ...action.payload,
+        id: Math.max(...state.colors.map(c => c.id), 0) + 1,
+      });
     },
     deleteColor: (state, action) => {
       const entryIndex = state.colors.findIndex(color => color.id === action.payload);
-      state.colors.splice(entryIndex, 1);
+      if (entryIndex >= 0) {  // check that the to-be-deleted color exists
+        state.colors.splice(entryIndex, 1);
+      }
     }
   }
 });

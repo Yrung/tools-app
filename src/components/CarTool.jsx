@@ -1,35 +1,30 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { CarForm } from './CarForm';
 import { CarTable } from './CarTable';
 import { ToolHeader } from './ToolHeader';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCar, deleteCar, selectCars } from '../slices/carToolSlice';
 
 // CarTool provides the car data (keep the state) and is the parent component of the whole Car thing,
 // calling CarTable and CarForm to display them
 export const CarTool = () => {
-const [cars, setCars] = useState([
-  {id:1, make: 'make1', model: 'model1', year: 2024, color: 'red', price: 50000},
-  {id:2, make: 'make2', model: 'model2', year: 2024, color: 'blue', price: 50000},
-])
 
-  const addCar = useCallback(newCar => {
-    setCars([
-      ...cars,
-      {
-        ...newCar,
-        id: Math.max(...cars.map(c => c.id), 0) + 1,
-      }
-    ])
-  }, [cars])
+  const cars = useSelector(selectCars);
+  const dispatch = useDispatch();
 
-  const deleteCar = useCallback((carId) => {
-    setCars(cars.filter(c => c.id !== carId));
-  }, [cars]);
+  const doAddCar = useCallback(newCar => {
+    dispatch(addCar(newCar));
+  }, [dispatch])
+
+  const doDeleteCar = useCallback((carId) => {
+    dispatch(deleteCar(carId))
+  }, [dispatch]);
 
   return (
     <>
       <ToolHeader headerText="Car Tool" />
-      <CarTable cars={cars} onDeleteCar={deleteCar}/>
-      <CarForm buttonText="Add Car" onSubmitCar={addCar} />
+      <CarTable cars={cars} onDeleteCar={doDeleteCar}/>
+      <CarForm buttonText="Add Car" onSubmitCar={doAddCar} />
     </>
   );
 };
