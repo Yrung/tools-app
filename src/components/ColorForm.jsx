@@ -12,14 +12,20 @@ const defaultProps = {
 // in ColorTool, the 'color' state is then passed down to ColorList to be displayed
 export const ColorForm = (props = defaultProps) => {
 
-  const [colorForm, change, resetColorForm] = useForm({ name: '', hexcode: '' });
+  const [ colorForm, change, resetColorForm ] = useForm({ name: '', hexcode: '' });
 
+  const { onSubmitColor } = props;
+
+  // only assign the new function created on this render
+  // if one of these dependencies [onSubmitColor, colorForm, resetColorForm]
+  // has changed, if no dependencies have changed, use the
+  // previously remembered callback function
   const submitColor = useCallback(() => {
     // call the onSubmitColor prop, which is some func (e.g. addColor) defined in the parent component and passed down to ColorForm
-    props.onSubmitColor({...colorForm});
-
-    resetColorForm({ name: '', hexcode: ''});
-  }, [props, colorForm, resetColorForm]);
+    onSubmitColor({ ...colorForm });
+    // ths will blank out the form
+    resetColorForm({ name: '', hexcode: '' });
+  }, [onSubmitColor, colorForm, resetColorForm]);
 
   return (
     <form>
@@ -29,7 +35,7 @@ export const ColorForm = (props = defaultProps) => {
       </label>
       <label>
         Hexcode
-        <input type="text" name="hexcode" value={colorForm.hexCode} onChange={change} />
+        <input type="text" name="hexcode" value={colorForm.hexcode} onChange={change} />
       </label>
       <button type="button" onClick={submitColor}>{props.buttonText}</button>
     </form>
@@ -40,7 +46,6 @@ ColorForm.propTypes = {
   buttonText: PropTypes.string.isRequired,
   onSubmitColor: PropTypes.func.isRequired,
 };
-
 
 // ---------------------- BELOW IS THE LONG VERSION OF ABOVE ---------------------------- //
 
