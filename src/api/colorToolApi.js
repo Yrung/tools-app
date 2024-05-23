@@ -1,11 +1,11 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const colorToolApi = createApi({
   reducerPath: 'colorToolApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3060/'}),
   endpoints: builder => ({
     getColors: builder.query({
-      query: () => 'colors',  // GET http://localhost:3060/ <- return the colors list from the REST
+      query: () => 'colors',   // GET http://localhost:3060/colors <- return the colors list from the rest
       providesTags: [{ type: 'Colors', id: 'LIST' }],
     }),
     appendColor: builder.mutation({
@@ -22,7 +22,7 @@ export const colorToolApi = createApi({
         method: 'DELETE',
       }),
       invalidatesTags: [{ type: 'Colors', id: 'LIST' }],
-    })
+    }),
   }),
 });
 

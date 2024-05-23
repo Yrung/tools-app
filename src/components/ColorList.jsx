@@ -13,7 +13,7 @@ export const ColorList = (props) => {
 
 ColorList.propTypes = {
   colors: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     hexcode: PropTypes.string.isRequired,
   })),
