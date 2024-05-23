@@ -1,5 +1,10 @@
 # React + Vite
 
+https://github.com/cc-classes/20240521_react-redux
+
+To start the app: npm start
+
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

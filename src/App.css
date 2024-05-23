@@ -1,42 +1,79 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.container {  /* select by className */
+  position: fixed;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+
+  display: grid;
+
+  grid-template-areas:
+  'header header'
+  'menu menu'
+  'content sidebar'
+  'footer footer';
+
+  grid-template-rows: 70px 40px 1fr 70px;
+  grid-template-columns: 4fr 1fr;
+}
+
+#page-header, #page-footer {  /* select by id */
+  background-color: navy;
+  color: white;
+}
+
+#page-header {
+  grid-area: header;
+  padding-left: 20px;
+  display: flex;  /* enable vertical center */
+  align-items: center; /* vertical centering */
+}
+
+#page-footer {
+  grid-area: footer;
+  padding-top: 8px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+#content {
+  grid-area: content;
+  padding: 10px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#sidebar {
+  grid-area: sidebar;
+  background-color: orange;
+  padding: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+#main-menu {
+  grid-area: menu;
+  background-color: lightgray;
 }
 
-.card {
-  padding: 2em;
+nav > ul {  /* > is called a CSS combinator */
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
 }
 
-.read-the-docs {
-  color: #888;
+.menu-item {
+  padding: 10px;
+}
+
+.menu-item > a {
+  color: black;
+  text-decoration: none;
+}
+
+.menu-item > a:hover {  /* a:hover is an example of a pseudo-class */
+  text-decoration: underline;
 }
