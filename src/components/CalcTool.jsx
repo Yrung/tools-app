@@ -17,24 +17,31 @@ export const CalcTool = () => {
   const [num, setNum] = useState(0);
 
   const doAdd = useCallback(() => {
-    // creating an add action and dispatching the action into the store
-    dispatch(add(num));
-    setNum(0);
+    if (num === "") return;
+    const numValue = Number(num);
+    if (isNaN(numValue)) return;
+    dispatch(add(numValue));     // creating an add action and dispatching the action into the store
   }, [num, dispatch]);
 
   const doSubtract = useCallback(() => {
-    dispatch(subtract(num));
-    setNum(0);
+    if (num === "") return;
+    const numValue = Number(num);
+    if (isNaN(numValue)) return;
+    dispatch(subtract(numValue));
   }, [num, dispatch]);
 
   const doMultiply = useCallback(() => {
-    dispatch(multiply(num));
-    setNum(0);
+    if (num === "") return;
+    const numValue = Number(num);
+    if (isNaN(numValue)) return;
+    dispatch(multiply(numValue));
   }, [num, dispatch]);
 
   const doDivide = useCallback(() => {
-    dispatch(divide(num));
-    setNum(0);
+    if (num === "") return;
+    const numValue = Number(num);
+    if (isNaN(numValue)) return;
+    dispatch(divide(numValue));
   }, [num, dispatch]);
 
   const doResetHistory = useCallback(() => {
@@ -53,11 +60,11 @@ export const CalcTool = () => {
     <form>
       <div>Result: {result}</div>
       <div>{errorMessage}</div>
-      <label> 
-        Num Input:
-        <input type="number" value={num} 
-          onChange={e => setNum(e.target.valueAsNumber)}/>
-      </label>
+      <label>
+          Num Input:
+          <input type="text" value={num}
+            onChange={e => setNum(e.target.value)} />
+        </label>
       <fieldset>
         <button type="button" onClick={doAdd}>+</button>
         <button type="button" onClick={doSubtract}>-</button>
