@@ -1,15 +1,15 @@
 import { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { add, subtract, multiply, divide, resetHistory, deleteHistoryEntry, selectResult, selectHistory } from '../slices/calcToolSlice';
+import { add, subtract, multiply, divide, resetHistory, deleteHistoryEntry, selectResult, selectHistory, selectErrorMessage } from '../slices/calcToolSlice';
 
 export const CalcTool = () => {
 
   // the useSelector hook will have access to the redux store
-  // so the useSelector hook will use selectResult func to get the result off the state
+  // so the useSelector hook will use selectResult func to get the result/history/errorMessage field off the state
   const result = useSelector(selectResult);
-
   const history = useSelector(selectHistory);
+  const errorMessage = useSelector(selectErrorMessage);
 
   // sends actions into the store
   const dispatch = useDispatch();
@@ -52,6 +52,7 @@ export const CalcTool = () => {
     </header>
     <form>
       <div>Result: {result}</div>
+      <div>{errorMessage}</div>
       <label> 
         Num Input:
         <input type="number" value={num} 

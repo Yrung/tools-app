@@ -4,9 +4,12 @@ export const calcToolSlice = createSlice({
   name: 'calcTool',
   initialState: {
     history: [],
+    errorMessage: '',
   },
   reducers: {
     add: (state, action) => {
+      state.errorMessage = '';  // clear the error message whe nuser executes a successful operation
+      
       state.history = [
         ...state.history,
         {
@@ -17,6 +20,8 @@ export const calcToolSlice = createSlice({
       ]
     },
     subtract: (state, action) => {
+      state.errorMessage = '';  // clear the error message whe nuser executes a successful operation
+
       state.history = [
         ...state.history,
         {
@@ -27,6 +32,8 @@ export const calcToolSlice = createSlice({
       ]
     },
     multiply: (state, action) => {
+      state.errorMessage = '';  // clear the error message whe nuser executes a successful operation
+
       state.history = [
         ...state.history,
         {
@@ -37,14 +44,21 @@ export const calcToolSlice = createSlice({
       ]
     },
     divide: (state, action) => {
-      state.history = [
-        ...state.history,
-        {
-          opName: 'Divide',
-          opValue: action.payload,
-          id: Math.max(...state.history.map(h => h.id), 0) + 1,
-        }
-      ]
+      if (action.payload === 0) {
+        state.errorMessage = 'ERROR: Cannot divide by 0';
+      }
+      else {
+        state.errorMessage = '';  // clear the error message whe nuser executes a successful operation
+
+        state.history = [
+          ...state.history,
+          {
+            opName: 'Divide',
+            opValue: action.payload,
+            id: Math.max(...state.history.map(h => h.id), 0) + 1,
+          }
+        ]
+      }
     },
     resetHistory: (state) => {
       // state.history = [];
@@ -92,6 +106,8 @@ export const selectResult = state => {
 
 // get the 'history' part of the state from the 'calcTool' slice
 export const selectHistory = state => state.calcTool.history;
+
+export const selectErrorMessage = state => state.calcTool.errorMessage;
 
 // export the reducer, so you could add them to the store when configuring the store in store.js
 export default calcToolSlice.reducer;
