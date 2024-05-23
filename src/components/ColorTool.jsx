@@ -1,10 +1,12 @@
 import { useCallback } from 'react';
 
+import {
+  useGetColorsQuery, useAppendColorMutation, useRemoveColorMutation,
+} from '../api/colorToolApi';
+
 import { ColorList } from "./ColorList";
 import { ToolHeader } from "./ToolHeader";
 import { ColorForm } from './ColorForm';
-
-import { useGetColorsQuery, useAppendColorMutation, useRemoveColorMutation } from '../api/colorToolApi';
 
 // ColorTool provides the car data (keep the state) and is the parent component of the whole Color thing,
 // calling ColorList and ColorForm to display them
@@ -33,8 +35,10 @@ export const ColorTool = () => {
   return (
     <>
       <ToolHeader headerText="Color Tool" />
-      <ColorList colors={colors} onDeleteColor={doDeleteColor}/>
-      <ColorForm buttonText="Add Color" onSubmitColor={doAddColor} />
+      <ColorList colors={colors} onDeleteColor={doDeleteColor} />
+      <ColorForm buttonText="Add Color"
+        onSubmitColor={doAddColor} />
     </>
   );
+
 };
